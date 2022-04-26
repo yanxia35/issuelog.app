@@ -1,0 +1,4 @@
+
+<div class="border" *ngFor="let action of (issue.issueActions|action:true:subProjectId)">
+  <app-action-post [action]="action"></app-action-post>
+</div>

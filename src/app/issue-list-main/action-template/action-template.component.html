@@ -1,0 +1,135 @@
+<ng-template #modal>
+    <div class="modal-header">
+      <h5 class="modal-title" *ngIf="subID == null">Add Action to {{issue.issueNo}}, Project No: {{issue.project}}</h5>
+      <h5 class="modal-title" *ngIf="subID != null">Add Action to {{issue.issueNo}}, Project No: {{subID}}</h5>
+      <button type="button" class='btn' (click)='dismiss()' ><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="container">
+
+        <div class='step-1' [hidden]='!showStep(1)'>
+          <div class="row mb-2">
+            <div class="col col-border mx-3 d-flex align-items-center justify-content-center">
+              <span class="fas fa-tools fa-2x mr-3"></span>
+              <button type="button" class="btn btn-outline-primary btn-block" ngbPopover="Action if the issue requires ordering for material" triggers="mouseenter:mouseleave" placement="left" (click)='select("MaterialChange")'>
+                Material Change
+              </button>
+            </div>
+            <div class="col mx-3 col-border d-flex align-items-center justify-content-center">
+              <span class="fas fa-microscope fa-2x mr-3"></span>
+              <button type="button" class="btn btn-outline-primary btn-block" ngbPopover="Action if Test Engineers required to do specific actions" triggers="mouseenter:mouseleave" placement="right" (click)='select("TestEng")' >
+                Test Eng
+              </button>
+            </div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col mx-3 col-border d-flex align-items-center justify-content-center">
+              <span class="fas fa-wrench fa-2x mr-3"></span>
+              <button type="button" class="btn btn-outline-primary btn-block" ngbPopover="Action if Mechanical parts installation required" triggers="mouseenter:mouseleave" placement="left" (click)='select("MechChange")'>
+                Station MECH Modification
+              </button>
+            </div>
+            <div class="col mx-3 col-border d-flex align-items-center justify-content-center">
+              <span class="fas fa-user-friends fa-2x mr-2"></span>
+              <button type="button" class="btn btn-outline-primary btn-block" ngbPopover="Action if CSS Engineers required to do specific actions" triggers="mouseenter:mouseleave" placement="right" (click)='select("CSS")'>
+                CSS Action
+              </button>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col mx-3 col-border d-flex align-items-center justify-content-center">
+              <span class="fas fa-bolt fa-2x mr-3" style="width: 40px;"></span>
+              <button type="button" class="btn btn-outline-primary btn-block" ngbPopover="Action if Electrical parts installation required" triggers="mouseenter:mouseleave" placement="left" (click)='select("ElecChange")'>
+                Station ELEC Modification
+              </button>
+            </div>
+            <div class="col mx-3 col-border d-flex align-items-center justify-content-center">
+              <span class="fas fa-user-cog fa-2x mr-2"></span>
+              <button type="button" class="btn btn-outline-dark btn-block" ngbPopover="Add a Empty action" triggers="mouseenter:mouseleave" placement="right" (click)='buildBlankAction()' >
+                Quick Action
+              </button>
+            </div>
+          </div>
+          <hr style="margin-bottom:0px;">
+          <div class="container">
+            <div class="row my-2">
+              <div class="col d-flex align-items-center justify-content-center">
+                <h6 style="color: rgb(105, 105, 105);">EC Drawing Delivery</h6>
+              </div>
+            </div>
+            <div class="row mb-1">
+              <div class="col">
+                <button type="button" class="btn btn-outline-primary" ngbPopover="Action for DDE/MSE to deliver the drawings" triggers="mouseenter:mouseleave" placement="bottom" (click)='drawingSelect("Mech")'>
+                  <span style="font-size:small; font-weight:500;">MECH Drawing Delivery</span>
+                </button>
+              </div>
+              <div class="col">
+                <button type="button" class="btn btn-outline-success" ngbPopover="Action to notify MFG/SIT after drawing have delivered to proper location" triggers="mouseenter:mouseleave" placement="bottom" (click)='drawingSelect("MechComplete")'>
+                  <span style="font-size:small; font-weight:500;">MECH Drawing Delivery Completion</span>                 
+                </button>
+              </div>
+              <div class="col">
+                <button type="button" class="btn btn-outline-primary" ngbPopover="Action for DDE/MSE to deliver the drawings" triggers="mouseenter:mouseleave" placement="bottom" (click)='drawingSelect("Elec")'>
+                  <span style="font-size:small; font-weight:500;">ELEC Drawing Delivery</span>
+                </button>
+              </div>
+              <div class="col">
+                <button type="button" class="btn btn-outline-success" ngbPopover="Action to notify MFG/SIT after drawing have delivered to proper location" triggers="mouseenter:mouseleave" placement="bottom" (click)='drawingSelect("ElecComplete")'>
+                  <span style="font-size:small; font-weight:500;">ELEC Drawing Delivery Completion</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class='step-2' [hidden]='!showStep(2)'>
+          <div class="row mb-3">
+            <h6>Action Details:</h6>
+          </div>
+
+          <app-material-template [hidden]="actionTemplateResult !='MaterialTemplate'" [actionOwners]=actionOwnerResult [user]=user [issue]=issue [subID]=subID (closemodal)="close()" (goback)="stepBackToMain()"></app-material-template>
+          <app-sit-template [hidden]="actionTemplateResult !='SITTemplate'" [actionOwners]=actionOwnerResult [user]=user [issue]=issue [subID]=subID (closemodal)="close()" (goback)="stepBackToMain()"></app-sit-template>
+          <app-mech-template [hidden]="actionTemplateResult !='MechTemplate'" [actionOwners]=actionOwnerResult [user]=user [issue]=issue [subID]=subID (closemodal)="close()" (goback)="stepBackToMain()"></app-mech-template>
+          <app-elec-template [hidden]="actionTemplateResult !='ElecTemplate'" [actionOwners]=actionOwnerResult [user]=user [issue]=issue [subID]=subID (closemodal)="close()" (goback)="stepBackToMain()"></app-elec-template>
+
+          <div class="row" *ngIf="actionTemplateResult == null || actionTemplateResult == '' || actionTemplateResult == undefined">
+            <div class="col d-flex justify-content-center">
+                <h6 style="color: red;" > Sorry we were not able to find the owner. Please use the <span style="color:black;">Quick Action</span></h6>
+            </div>
+          </div>
+
+        </div>
+
+        <div class='step-3' [hidden]='!showStep(3)'>
+          <div class="container">
+            <div class="row ">
+              <h6>Please Conifrm:</h6>
+            </div>
+            <div class="row d-flex justify-content-center">
+              <h6 style="color: green;">A new blank action will be added, please customize it in the action editor.</h6>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="modal-footer" [hidden] = 'currentStep == 2 && actionTemplateResult != null'>
+      <div class="container">
+        <div class="row">
+          <div class="col col-border d-flex justify-content-end p-0">
+            <button type="button" class="btn btn-secondary mr-2" (click)='stepBackToMain()' [hidden] = 'currentStep != 3'>Back</button>
+            <button type="button" class="btn btn-secondary mr-2" (click)='stepBackToMain()' [hidden] = 'currentStep != 2 || actionTemplateResult != null '>Back</button>
+            <button type="button" class="btn btn-success " (click)="addAction()" [hidden]='currentStep != 3'>Add Action</button>
+          </div>
+        </div>
+        <div class="row" [hidden] = 'currentStep != 1'>
+          <div class="col col-border d-flex justify-content-center" [hidden]='currentStep != 1 '>
+            <h6 >Select a <span style="color:dodgerblue;">Template</span> or add a customizable blank action</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+

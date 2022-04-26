@@ -1,0 +1,20 @@
+<form class="row" [formGroup]="flagForm">
+  <div class="col-8">
+    <div class="input-group input-group-sm mb-2">
+      <div class="input-group-prepend col-3">
+        <span class="input-group-text w-100">Part No To Flag:</span>
+      </div>
+      <input type="text" class="form-control" formControlName="partNo" ngbTooltip='Part No/Asm No, seperated by ","'>
+    </div>
+  </div>
+  <div class="col-4 ">
+    <div class="row justify-content-end">
+      <button class="btn btn-primary btn-sm mr-1 col-5" [disabled]="flagForm.invalid" (click)="flag(true)">Hard
+        Flag</button>
+      <button class="btn btn-secondary btn-sm col-5" [disabled]="flagForm.invalid" (click)="flag(false)">Soft
+        Flag</button>
+    </div>
+
+  </div>
+  <!-- <div>{{flagForm.invalid}} {{flagForm.get("partNo").invalid}}</div> -->
+</form>

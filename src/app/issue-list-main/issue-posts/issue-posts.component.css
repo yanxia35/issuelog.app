@@ -1,0 +1,33 @@
+.issueSummary{
+    font-size: 16px;
+}
+.total{
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 50px;
+    margin-bottom: 5px;
+}
+
+.active{
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 50px;
+    margin-bottom: 5px;
+    color: crimson;
+}
+
+.closed{
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 50px;
+    margin-bottom: 5px;
+    color: green;
+}
+
+.ec{
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 50px;
+    margin-bottom: 5px;
+    color: blue;
+}

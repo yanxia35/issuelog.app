@@ -1,0 +1,48 @@
+
+<div class="container">
+
+    <form [formGroup]="sitForm">
+
+        <div class="form-group row" >
+            <label class="col-sm-3">*Responsible:</label>
+            <div class="col-sm-4 px-0">
+                <select class="custom-select" formControlName="responsibleId" >
+                <option *ngFor="let item of actionOwners"  value="{{item.id}}">{{item.firstName}} {{item.lastName}}</option>
+                </select>
+                <small *ngIf="sitForm.get('responsibleId').invalid && sitForm.get('responsibleId').touched" class="text-danger">Responsible is Required</small>
+            </div>
+            <div class="col-sm-5">
+            <small style="color: green;" *ngIf="ownerFound"> We have found the action owner!</small>
+            </div>
+        </div>
+        
+        <div class="form-group row" >
+            <label for="actionnote" class="col-sm-3 col-form-label">*Action Notes:</label>
+            <div class="col-sm-9 px-0">
+            <textarea type="text" formControlName="actionNotes" class="form-control" id="actionnote" placeholder="• Verify implementation or installation based on other actions as applicable. &#10;• Verify functionality and verify safety as applicable" rows="4" ></textarea>
+            <small *ngIf="sitForm.get('actionNotes').invalid && sitForm.get('actionNotes').touched" class="text-danger">Action notes is Required</small>
+            </div>
+        </div>
+
+        <div class="form-group row" >
+            <label for="actionnote" class="col-sm-3 col-form-label">Special Instructions:</label>
+            <div class="col-sm-9 px-0">
+            <textarea type="text" formControlName="specialInstructions" class="form-control" id="actionnote" placeholder="Review document changes that results in need of further testing: &#10;• Interlock list with revision number &#10;• DOO with revision number &#10;• Document that defines the testing description or instruction" rows="6" ></textarea>
+            </div>
+        </div>
+        
+    </form>
+
+    <hr>
+
+    <div class="row">
+        <div class="col d-flex justify-content-end p-0">
+            <button type="button" class="btn btn-secondary mx-2" (click)="back()">Back</button>
+            <button type="button" class="btn btn-success " (click)="addAction()" *ngIf="ownerFound">Add Action</button>
+        </div>
+        
+    </div>
+</div>
+
+
+

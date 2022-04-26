@@ -1,0 +1,36 @@
+.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.row {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.col,
+[class*="col-"] {
+  padding-right: 0;
+  padding-left: 0;
+}
+#actionDesc {
+  word-wrap: break-word !important;
+  white-space: pre-wrap !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  background-color:#FFF4EA;
+}
+.actionClosed {
+  background-color: #AEDDBE;
+}
+.actionActive {
+  background-color: #FFB8A6;
+}
+.draft {
+  background-color: #FFEAE6;
+}
+.selected{
+  
+  background-color: #51A0D5 !important;
+}

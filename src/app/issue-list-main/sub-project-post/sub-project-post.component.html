@@ -1,0 +1,53 @@
+<div class="row border" [formGroup]="statusForm">
+  <div class="col-2">{{ subProjectStatus.subProjectId }}</div>
+  <div class="col-2">
+    <div  class="input-group input-group-sm pr-2">
+      <select class="custom-select font-weight-bold"  formControlName="status"
+      [attr.disabled]="!userId||null"
+      [ngClass]="{'pending': this.subProjectStatus.status=='pending',
+                'received':this.subProjectStatus.status=='received',
+                'kitting':this.subProjectStatus.status=='kitting',
+                'handedtomfg':this.subProjectStatus.status=='handed to mfg',
+                'retrofitonsite':this.subProjectStatus.status=='retrofit on-site' || this.subProjectStatus.status=='required',
+                'closed':this.subProjectStatus.status=='closed' ||
+                this.subProjectStatus.status=='n/a' || this.subProjectStatus.status=='not required'
+        }">
+        <option class="font-weight-bold" value="required">Required</option>
+        <option class="font-weight-bold" value="not required">Not Required</option>
+        <option class="font-weight-bold" value="n/a">N/A</option>
+        <option class="font-weight-bold" value="pending">Pending</option>
+        <option class="font-weight-bold" value="received">Received</option>
+        <option class="font-weight-bold" value="kitting">Kitting</option>
+        <option class="font-weight-bold" value="handed to mfg">Handed To MFG</option>
+        <option class="font-weight-bold" value="closed">Closed</option>
+        <option class="font-weight-bold" value="retrofit on-site">Retrofit On-Site</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-2">
+    <button class="btn btn-sm btn-primary" (click)="updateSubProjectStatus()" *ngIf="userId">Apply Change</button>
+  </div>
+  <div class="col-2">
+    <button class="btn btn-sm btn-warning" (click)="addAction()" *ngIf="userId">Add Action</button>
+  </div>
+  <div class="col-2" >
+    <div class="btn-sm btn-link text-danger" *ngIf="!hasActions()">No Actions</div>
+    <button class="btn btn-sm btn-link"
+    *ngIf="hasActions()&&!displayActions" (click)="toggleDisplayActions()">
+    <i class="fas fa-chevron-right" *ngIf="!displayActions"></i>
+    <i class="fas fa-chevron-down" *ngIf="displayActions"></i>
+    Expand Actions</button>
+    <button class="btn btn-sm btn-link"
+    *ngIf="hasActions()&&displayActions"  (click)="toggleDisplayActions()">
+    <i class="fas fa-chevron-right" *ngIf="!displayActions"></i>
+    <i class="fas fa-chevron-down" *ngIf="displayActions"></i>
+    Collapse Actions</button>
+  </div>
+  <div class="col-2">
+    <button class="btn btn-sm btn-danger" (click)="deleteSubProject()">Delete</button>
+  </div>
+</div>
+<div class="row w-100" *ngIf="displayActions">
+  <app-sub-project-actions class="col-12" [issue]="issue" [subProjectId]="subProjectStatus.subProjectId"></app-sub-project-actions>
+</div>
+<app-action-template #actionTemplate [issue] = "issue"></app-action-template>

@@ -1,0 +1,37 @@
+
+<div class="container">
+
+    <form [formGroup]="materialForm">
+
+        <div class="form-group row" >
+            <label class="col-sm-3">*Responsible:</label>
+            <select class="custom-select col-sm-4" formControlName="responsibleId" >
+            <option *ngFor="let item of actionOwners" value="{{item.id}}">{{item.firstName}} {{item.lastName}}</option>
+            </select>
+            <small *ngIf="materialForm.get('responsibleId').invalid && materialForm.get('responsibleId').touched" class="text-danger">Responsible is Required</small>
+            <div class="col-sm-5">
+                <small style="color: green;" *ngIf="ownerFound"> We have found the action owner!</small>
+            </div>
+        </div>
+    
+        
+        <div class="form-group row" >
+            <label for="actionnote" class="col-sm-3 col-form-label">*Action Notes:</label>
+            <div class="col-sm-9 px-0">
+            <textarea type="text" formControlName="actionNotes" class="form-control" id="actionnote" placeholder="Please enter action notes" rows="4" ></textarea>
+            <small *ngIf="materialForm.get('actionNotes').invalid && materialForm.get('actionNotes').touched" class="text-danger">Action notes is Required</small>
+            </div>
+        </div>
+        
+    </form>
+    <hr>
+    <div class="row">
+        <div class="col d-flex justify-content-end p-0">
+            <button type="button" class="btn btn-secondary mx-2" (click)="back()">Back</button>
+            <button type="button" class="btn btn-success " (click)="addAction()">Add Action</button>
+        </div>
+        
+    </div>
+</div>
+
+

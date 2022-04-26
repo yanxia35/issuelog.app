@@ -1,0 +1,35 @@
+
+.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.row {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.col,
+[class*="col-"] {
+  padding-right: 0;
+  padding-left: 0;
+}
+.pending{
+  background-color: rgb(236, 147, 74);
+}
+.received{
+  background-color: rgb(156, 206, 100);
+}
+.kitting{
+  background-color: rgb(116, 172, 197);
+}
+.handedtomfg{
+  background-color: rgb(103, 134, 235);
+}
+.closed{
+  background-color: rgba(190, 190, 190, 0.808);
+}
+.retrofitonsite{
+  background-color: rgb(243, 129, 104);
+}
+

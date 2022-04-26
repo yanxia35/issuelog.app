@@ -1,0 +1,8 @@
+<div class="col-12" *ngFor="let item of subProjectStatuses; let i = index">
+  <div class="row w-100 pt-1 pb-1 border-top-0 border-light">
+  <!-- [ngClass]="{ 'bg-info': i % 2 == 0, 'bg-secondary': i % 2 != 0 }" -->
+
+    <app-sub-project-post class="col" [subProjectStatus]="item" [issue]="issue"
+    [userId]="userId"></app-sub-project-post>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+
+<div class="container">
+
+    <form [formGroup]="elecForm">
+
+        <div class="form-group row" >
+            <label class="col-sm-3">*Responsible:</label>
+            <div class="col-sm-4 px-0">
+                <select class="custom-select" formControlName="responsibleId" >
+                <!-- <option value=""></option> -->
+                <option *ngFor="let item of actionOwners"  value="{{item.id}}">{{item.firstName}} {{item.lastName}}</option>
+                </select>
+                <small *ngIf="elecForm.get('responsibleId').invalid && elecForm.get('responsibleId').touched" class="text-danger">Responsible is Required</small>
+            </div>
+            <div class="col-sm-5">
+            <small style="color: green;" *ngIf="ownerFound"> We have found the action owner!</small>
+            </div>
+        </div>
+        
+        <div class="form-group row" >
+            <label for="actionnote" class="col-sm-3 col-form-label">*Action Notes:</label>
+            <div class="col-sm-9 px-0">
+            <textarea type="text" formControlName="actionNotes" class="form-control" id="actionnote" placeholder="Brief description of the work to be perfomed" rows="4" ></textarea>
+            <small *ngIf="elecForm.get('actionNotes').invalid && elecForm.get('actionNotes').touched" class="text-danger">Action notes is Required</small>
+            </div>
+        </div>
+
+        <div class="form-group row" >
+            <label for="actionnote" class="col-sm-3 col-form-label">Elec Drawing Number:</label>
+            <div class="col-sm-9 px-0">
+            <textarea type="text" formControlName="elecDrawingNumber" class="form-control" id="actionnote" placeholder="• Electrical drawing revision (e.g Rev 1) &#10;• Electrical drawing sheet number modified (e.g Sheet 1,3) " rows="2" ></textarea>
+            </div>
+        </div>
+
+        <div class="form-group row" >
+            <label for="actionnote" class="col-sm-3 col-form-label">Part(s) Added:</label>
+            <div class="col-sm-9 px-0">
+            <textarea type="text" formControlName="partsAdded" class="form-control" id="actionnote" placeholder="Part(s) added (QTY, GI#, description) per station (e.g QTY 2, 1000192, Relay)" rows="2" ></textarea>
+            </div>
+        </div>
+
+        <div class="form-group row" >
+            <label for="actionnote" class="col-sm-3 col-form-label">Part(s) Removed:</label>
+            <div class="col-sm-9 px-0">
+            <textarea type="text" formControlName="partsRemoved" class="form-control" id="actionnote" placeholder="Part(s) removed (QTY, GI#, description) per station (e.g QTY 2, 1000192, Relay)" rows="2" ></textarea>
+            </div>
+        </div>
+
+        <div class="form-group row" >
+            <label for="actionnote" class="col-sm-3 col-form-label">Special Instructions:</label>
+            <div class="col-sm-9 px-0">
+            <textarea type="text" formControlName="specialInstructions" class="form-control" id="actionnote" placeholder="• Special Tools requirement &#10;• Installation instructions &#10;• Functionality verification if required." rows="4" ></textarea>
+            </div>
+        </div>
+        
+    </form>
+
+    <hr>
+
+    <div class="row">
+        <div class="col d-flex justify-content-end p-0">
+            <button type="button" class="btn btn-secondary mx-2" (click)="back()">Back</button>
+            <button type="button" class="btn btn-success " (click)="addAction()" *ngIf="ownerFound">Add Action</button>
+        </div>
+    </div>
+</div>
+
+
+
+

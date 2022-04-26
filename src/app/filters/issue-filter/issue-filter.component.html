@@ -1,0 +1,80 @@
+<form class="mx-2 my-2" [formGroup]="filterForm" (ngSubmit)="searchIssues()">
+  <div class="row mb-1 justify-content-between">
+    <div class="col-6">
+      <div class="row">
+        <div class="input-group input-group-sm col-lg-6 col-md-12 col-sm-12 mr-1 mb-1">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">Issue Status</label>
+          </div>
+          <select class="custom-select" formControlName="status">
+            <option value="active">Active</option>
+            <option value="closed">Closed</option>
+            <option value="ec">EC</option>
+            <option value="all">All</option>
+          </select>
+        </div>
+
+        <div class="input-group input-group-sm col mr-1 mb-1">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">Issue Owner</label>
+          </div>
+          <select class="custom-select" formControlName="owner">
+            <option value=""></option>
+            <option *ngFor="let item of employees" value="{{ item.id }}">{{ item.firstName }} {{ item.lastName }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="row">
+        <div class="input-group input-group-sm col-lg-6 col-md-12 col-sm-12 mr-1 mb-1">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">Project Number</label>
+          </div>
+          <input type="text" class="form-control" formControlName="projectNo" />
+        </div>
+
+        <div class="input-group input-group-sm col mb-1">
+          <div class="input-group-prepend ">
+            <label class="input-group-text" for="inputGroupSelect01">Action Owner</label>
+          </div>
+          <select class="custom-select" formControlName="actionOwner">
+            <option value=""></option>
+            <option *ngFor="let item of employees" value="{{ item.id }}">{{ item.firstName }} {{ item.lastName }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-between ">
+    <div class="col-6">
+      <div class=row>
+        <div class="input-group input-group-sm col-lg-6 col-md-12 col-sm-12 mr-1 mb-1">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">Issue No</label>
+          </div>
+          <input type="text" class="form-control" formControlName="issueNo" />
+        </div>
+        <div class="input-group input-group-sm col mb-1">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Issue Notes</span>
+          </div>
+          <input type="text" class="form-control" formControlName="issueNotes" />
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-sm btn-outline-secondary col-sm-5 col-md-2 col-lg-2" 
+      *ngIf="!searchStatus">
+      <i class="fa fa-search"></i> Search
+    </button>
+
+    <button type="button" class="btn btn-sm btn-outline-danger col-sm-5 col-md-2 col-lg-2" (click)="clearFilter()"
+      *ngIf="!searchStatus">
+      <i class="fa fa-times-circle"></i> Reset Filter
+    </button>
+  </div>
+</form>

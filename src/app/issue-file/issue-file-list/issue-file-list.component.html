@@ -1,0 +1,12 @@
+<div class="col-12">
+  <h4 *ngIf="issueFiles.length!==0" class="row">Issue Files</h4>
+  <div *ngFor="let item of issueFiles" class="row file  mt-1">
+    <div class="col-7 my-auto">
+      <a href="{{fileUrl}}{{issue.issueNo}}\{{item.fileUrl}}" target="_blank">{{item.description}}</a>
+    </div>
+    <div class="col">
+      <button class="btn-danger btn-sm px-3" (click)="delete(item.id)">Delete</button>
+    </div>
+  </div>
+</div>
+

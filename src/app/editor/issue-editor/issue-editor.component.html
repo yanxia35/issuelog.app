@@ -1,0 +1,213 @@
+<form [formGroup]="issueEditorForm" class="mx-2">
+  <div class="mt-2 row justify-content-end">
+    <div class="col-7">
+      <h3>Issue Editor</h3>
+    </div>
+    <button type="button" class="btn btn-outline-primary mr-2 col-2" (click)="saveIssue()" [disabled]="!isValidSave()"
+      *ngIf="user.id">
+      <i class="far fa-save mr-2"></i>Save</button>
+    <button type="button" class="btn btn-outline-danger col-2" *ngIf="user.id" (click)="cancelEdit()">
+      <i class="far fa-times-circle mr-2"></i>Reset</button>
+  </div>
+  <div class="text-danger" *ngIf="!user.id">
+    Please Login for Editting
+  </div>
+  <div class="text-danger" *ngIf="!isValidSave()">Issue Found In Process and Failure Mode must be filled to close an
+    issue.</div>
+  <div class="input-group input-group-sm mt-2 mb-2">
+    <div class="input-group-prepend col-3">
+      <span class="input-group-text w-100">Issue Number</span>
+    </div>
+    <input type="text" readonly class="form-control" formControlName="issueNo">
+  </div>
+
+  <div class="input-group input-group-sm mb-2">
+    <div class="input-group-prepend col-3">
+      <span class="input-group-text w-100">Created On</span>
+    </div>
+    <input type="text" readonly class="form-control" formControlName="createdOn">
+  </div>
+
+  <div class="input-group input-group-sm mb-2">
+    <div class="input-group-prepend col-3">
+      <span class="input-group-text w-100">Originator</span>
+    </div>
+    <input type="text" readonly class="form-control" formControlName="originatorId">
+  </div>
+
+  <!-- <div class="input-group input-group-sm mb-2">
+    <div class="input-group-prepend col-3">
+      <label class="input-group-text w-100" for="inputGroupSelect01">Project Number</label>
+    </div>
+    <select class="custom-select" formControlName="projectNo">
+      <option *ngFor="let item of projects" value="{{item.id}}">{{item.id}} {{item.name}}</option>
+    </select>
+  </div> -->
+  <div class="input-group input-group-sm mb-2">
+    <div class="input-group-prepend col-3">
+      <span class="input-group-text w-100">ADDL Project No</span>
+    </div>
+    <input type="text" class="form-control" formControlName="projectNo">
+  </div>
+  <div class="input-group input-group-sm mb-2">
+    <div class="input-group-prepend col-3">
+      <label class="input-group-text w-100" for="inputGroupSelect01">Project No</label>
+    </div>
+    <select class="custom-select" formControlName="project">
+      <option value=""></option>
+      <option *ngFor="let item of projects" value="{{item.id}}">{{item.id}} {{item.name}}</option>
+    </select>
+  </div>
+
+  <div class="input-group input-group-sm mb-2">
+    <div class="input-group-prepend col-3">
+      <span class="input-group-text w-100">Issue Owner</span>
+    </div>
+    <select class="custom-select" formControlName="issueOwnerId">
+      <option *ngFor="let item of employees" value="{{item.id}}">{{item.firstName}} {{item.lastName}}</option>
+    </select>
+  </div>
+
+  <div class="input-group input-group-sm mb-2">
+    <div class="input-group-prepend col-3">
+      <span class="input-group-text w-100">Issue Description</span>
+    </div>
+    <textarea class="form-control" rows="4" formControlName="issueDescription"></textarea>
+  </div>
+
+  <div class="input-group input-group-sm mb-2">
+    <div class="input-group-prepend col-3">
+      <span class="input-group-text w-100">Issue Notes</span>
+    </div>
+    <textarea [readonly]="!enableEditNotes" class="form-control" rows="8" formControlName="issueNotes"
+      (dblclick)="toggleNotesEdit()"></textarea>
+  </div>
+
+  <div class="input-group input-group-sm mb-2">
+    <div class="input-group-prepend col-3">
+      <span class="input-group-text w-100">New Notes</span>
+    </div>
+    <textarea class="form-control" formControlName="newNotes"></textarea>
+  </div>
+  <div class="input-group input-group-sm mb-2">
+    <div class="input-group-prepend col-3">
+      <span class="input-group-text w-100"><b>Issue Status</b></span>
+    </div>
+    <select class="custom-select" formControlName="issueStatus">
+      <option value="active">Active</option>
+      <option value="closed">Closed</option>
+      <option value="ec">EC</option>
+    </select>
+  </div>
+  <div class="input-group input-group-sm mb-2">
+    <div class="input-group-prepend col-3">
+      <span class="input-group-text w-100">Missing Parts</span>
+    </div>
+    <select class="custom-select" formControlName="isMissingParts">
+      <option value=true>Yes</option>
+      <option value=false>No</option>
+    </select>
+  </div>
+  <div class="input-group input-group-sm mb-2">
+    <div class="input-group-prepend col-3">
+      <span class="input-group-text w-100">Ready To Implement</span>
+    </div>
+    <select class="custom-select" formControlName="isReady">
+      <option value=true>Yes</option>
+      <option value=false>No</option>
+    </select>
+  </div>
+  <div class="input-group input-group-sm mb-2">
+    <div class="input-group-prepend col-3">
+      <span class="input-group-text w-100">Follow Up Date</span>
+    </div>
+    <input type="text" class="form-control" formControlName="followUpDate" ngbDatepicker #d="ngbDatepicker" />
+    <button class="btn btn-outline-primary btn-sm calendar" (click)="d.toggle()" type="button">
+      <i class="fa fa-calendar"></i>
+    </button>
+  </div>
+  <div class="input-group input-group-sm mb-2">
+    <div class="input-group-prepend col-3">
+      <span class="input-group-text w-100">Category</span>
+    </div>
+    <input type="text" class="form-control" formControlName="category">
+  </div>
+  <div class="input-group input-group-sm mb-2">
+    <div class="input-group-prepend col-3">
+      <span class="input-group-text w-100">Found In Process</span>
+    </div>
+    <select class="custom-select" formControlName="issueFoundProcess">
+      <option *ngFor="let item of processes" value="{{item.id}}">{{item.name}}</option>
+    </select>
+  </div>
+
+  <div class="input-group input-group-sm mb-2">
+    <div class="input-group-prepend col-3">
+      <span class="input-group-text w-100">Cause of Problem</span>
+    </div>
+    <select class="custom-select" formControlName="rootCause" (ngModelChange)="resetSoftwareCategory()">
+      <option *ngFor="let item of processes" value="{{item.id}}">{{item.name}}</option>
+    </select>
+  </div>
+
+  <!-- software category -->
+  <div class="input-group input-group-sm mb-2" *ngIf="isSoftwareIssue()">
+    <div class="input-group-prepend col-3">
+      <span class="input-group-text w-100">Software Category</span>
+    </div>
+    <select class="custom-select" formControlName="softwareCategory">
+      <option *ngFor="let item of softwareCategoryList" value="{{item}}">{{item}}</option>
+    </select>
+  </div>
+
+  <!-- Failure Mode -->
+  <div class="input-group input-group-sm mb-2">
+    <div class="input-group-prepend col-3">
+      <span class="input-group-text w-100">Failure Mode</span>
+    </div>
+    <select class="custom-select" formControlName="failureMode">
+      <option *ngFor="let item of failureModes" value="{{item.id}}">{{item.name}}</option>
+    </select>
+  </div>
+
+  <div class="input-group input-group-sm mb-2">
+    <div class="input-group-prepend col-3">
+      <span class="input-group-text w-100">Closed Date</span>
+    </div>
+    <input type="text" readonly class="form-control" formControlName="issueClosedDate">
+  </div>
+  <div class="input-group input-group-sm mb-2" [formGroup]="actionTemplateForm">
+    <div class="input-group-prepend input-group-sm col-3">
+      <span class="input-group-text w-100">Action Template</span>
+    </div>
+    <div class="input-group  input-group-sm col-7">
+      <select class="custom-select w-100 pl-2" formControlName="actionTemplate">
+        <option value=0>Please select</option>
+        <option value=1>Track EC Parts</option>
+      </select>
+    </div>
+    <div class="col">
+      <button class="btn btn-sm btn-info col" (click)="addActionTemplate()"
+        [disabled]="actionTemplateForm.get('actionTemplate').value == 0">Add</button>
+    </div>
+  </div>
+
+</form>
+<div class="row mx-2">
+  <div class="col">
+    <app-issue-flag [issue]="issue"></app-issue-flag>
+  </div>
+</div>
+<div class="mt-1 ml-2 row">
+  <button type="button" class="btn btn-outline-primary mr-3 col-2" (click)="saveIssue()" [disabled]="!isValidSave()"
+    *ngIf="user.id">
+    <i class="far fa-save mr-2"></i>Save</button>
+  <button type="button" class="btn btn-outline-danger col-2" *ngIf="user.id" (click)="cancelEdit()">
+    <i class="far fa-times-circle mr-2"></i>Reset</button>
+</div>
+<div class="row mx-2">
+  <app-issue-file-list class="col-12"></app-issue-file-list>
+</div>
+<div class="row mx-2 mb-5">
+  <app-issue-file-uploader class="col-12"></app-issue-file-uploader>
+</div>

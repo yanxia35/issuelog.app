@@ -1,0 +1,37 @@
+<div id="desc" class="row ml-2 mr-2 mt-2 text-left">
+    <div class="col-2">
+      Project: {{ecPart.projectNo}}
+    </div>
+  <div class="col-2">
+      Part No:<a target="_blank" href="http://part-catalog.greenlightinnovation.com/part/{{ecPart.partNo}}">{{ecPart.partNo}}</a>
+  </div>
+  <div class="col-1">
+      Qty: {{ecPart.quantity}}
+  </div>
+  <div class="col-3">
+     PO No: {{ecPart.poNumber}}
+  </div>
+  <div class="col-3">
+    Release Date: {{ecPart.releaseDate| date:'yyyy-MM-dd'}}
+  </div>
+</div>
+
+<div id="desc" class="row ml-2 mr-2" [ngStyle]="{'font-size': '15px'}">
+  <div class="col-2">
+     System ETA: {{ecPart.systemEta| date:'yyyy-MM-dd'}}
+  </div>
+  <div class="col-3">
+     Buyer ETA: {{ecPart.buyerEta| date:'yyyy-MM-dd'}}
+  </div>
+  <div class="col-2">
+     PO ETA: {{ecPart.poEta| date:'yyyy-MM-dd'}}
+  </div>
+  <div class="col-3"></div>
+</div>
+
+<div id="desc" class="row ml-2 mr-2"><small>
+  <div class="col"> Description: {{ecPart.description}}</div></small>
+</div>
+<div id="desc" class="row ml-2 mr-2"><small>
+  <div class="col"> Supplier: {{ecPart.supplierName}}</div></small>
+</div>

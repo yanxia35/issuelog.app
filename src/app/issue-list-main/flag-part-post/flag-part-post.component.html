@@ -1,0 +1,22 @@
+<div id="desc" class="row ml-2 mt-2">
+    <div class="col-2">
+        Part No: <a target="_blank" href="http://part-catalog.greenlightinnovation.com/part/{{partIssue.partNo}}">{{partIssue.partNo}}</a> 
+    </div>
+    <div class="col-2">
+        Type: {{partIssue.isHardFlag?"Hard Flag": "Soft Flag"}}
+    </div>
+    <div class="col-2">
+       Status: {{partIssue.isResolved? "Done" : "Active"}}
+    </div>
+    <div class="col-1 px-2 mr-2">
+        <button class="btn btn-sm col-12 btn-info" *ngIf="!partIssue.isResolved && this.user.id" (click)="resolveFlag()">Resolve</button>
+        <button class="btn btn-sm col-12  btn-info" *ngIf="partIssue.isResolved && this.user.id" (click)="reopenFlag()">Reopen</button>
+    </div>
+    <div class="col-1 px-2">
+        <button class="btn col-12 btn-sm btn-danger" *ngIf="this.user.id" (click)="deleteFlag()">Delete</button>
+    </div>
+    <div class="col">
+            {{partIssue.resolvedBy?"Resolved By: ": ""}} {{partIssue.resolvedBy? getShortName(): ""}} 
+            {{partIssue.resolvedDate?" ": ""}} {{partIssue.resolvedDate| date:'yyyy-MM-dd'}} 
+        </div>
+</div>

@@ -1,0 +1,79 @@
+/* #main{
+  width: 60%;
+}
+#side{
+    width:39%;
+    position: fixed;
+    top:60px;
+    right:0px;
+    left:60%
+}
+#issueEditor{
+ position: relative;
+} */
+.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.row {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.col,
+[class*="col-"] {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+#main {
+  position: Fixed;
+  bottom: 0;
+  width: 65%;
+  top: 160px;
+  overflow-y: auto;
+}
+#filter {
+  position: fixed;
+  top: 60px;
+  width: 65%;
+}
+@media print {
+  @page {
+    size: ledger landscape;
+  }
+  body{
+    top:0px
+  }
+  #main {
+    position: relative;
+    width: 100%;
+    overflow-y: auto;
+  }
+  #filter {
+    position: relative;
+    top: 0px;
+    height: 0px;
+    width: 100%;
+  }
+
+  #side{
+    display:none;
+  }
+}
+
+#merry {
+  width: 700px;
+  height: auto;
+  border-radius: 25%;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+#cat {
+  width: 400px;
+  height: auto;
+  border-radius: 25%;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}

@@ -1,0 +1,48 @@
+<div class="mx-4 mt-2">
+    <div class="row mb-1" style="background-color: #f7e9ff">
+      <div class="col-1">
+        <b>Project ID</b>
+      </div>
+      <div class="col-4">
+        <b>Project Name</b>
+      </div>
+      <div class="col-1">
+        <b>Status</b>
+      </div>
+      <div class="col-1">
+        <b>MFG Start Date</b>
+      </div>
+      <div class="col-1">
+        <b>System Eng</b>
+      </div>
+      <div class="col-2">
+        <b>DD Eng</b>
+      </div>
+      <div class="col">
+        <b>Elec Eng</b>
+      </div>
+    </div>
+  <div class="row" [ngClass]="{'even': i%2 === 0, 'odd': i%2 !== 0}"  *ngFor="let item of projects; let i = index">
+    <div class="col-1">
+    {{item.id}}
+    </div>
+    <div class="col-4">
+      {{item.name}}
+    </div>
+    <div class="col-1">
+      {{item.status}}
+    </div>
+    <div class="col-1">
+      {{item.mfgDate|date:'yyyy-MM-dd'}}
+    </div>
+    <div class="col-1">
+      {{item.sysEng}}
+    </div>
+    <div class="col-2">
+      {{item.ddeEng}}
+    </div>
+    <div class="col">
+      {{item.elecEng}}
+    </div>
+  </div>
+  </div>

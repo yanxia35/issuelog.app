@@ -1,0 +1,239 @@
+<div class="row my-2 mx-1 input-group input-group-sm" [formGroup]="filterForm">
+
+  <div class="col-12">
+    <div class="row h4 text-primary">
+      Issue Search Parameters:
+    </div>
+    <div class="row">
+      <div class="col">
+        Originator
+      </div>
+    </div>
+    <div class="row">
+      <div class="col input-group input-group-sm">
+        <select class="custom-select" formControlName="originator">
+          <option value=""></option>
+          <option *ngFor="let item of employees" value="{{ item.id }}">{{ item.firstName }} {{ item.lastName }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">Issue Status</div>
+    </div>
+    <div class="row ">
+      <div class="col input-group input-group-sm">
+        <select class="custom-select" formControlName="status">
+          <option value="active">Active</option>
+          <option value="closed">Closed</option>
+          <option value="ec">EC</option>
+          <option value="all">All</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        Issue Owner
+      </div>
+    </div>
+    <div class="row">
+      <div class="col  input-group input-group-sm">
+        <select class="custom-select" formControlName="owner">
+          <option value=""></option>
+          <option *ngFor="let item of employees" value="{{ item.id }}">{{ item.firstName }} {{ item.lastName }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        Project Number
+      </div>
+    </div>
+    <div class="row">
+      <div class="col input-group input-group-sm">
+        <input type="text" class="form-control" formControlName="projectNo" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        Issue Notes
+      </div>
+    </div>
+    <div class="row">
+      <div class="col input-group input-group-sm">
+        <input type="text" class="form-control" formControlName="issueNotes" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        Root Cause Process
+      </div>
+    </div>
+    <div class="row">
+      <div class="col input-group input-group-sm">
+        <select class="custom-select" formControlName="rootCauseProcess">
+          <option value=""></option>
+          <option *ngFor="let item of processes" value="{{ item.id }}">{{ item.name}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        Owner Department
+      </div>
+    </div>
+    <div class="row">
+      <div class="col input-group input-group-sm">
+        <select class="custom-select" formControlName="ownerDepartment">
+          <option value=""></option>
+          <option value="CSS">CSS</option>
+          <option value="DDE">DDE</option>
+          <option value="ELEC">ELEC</option>
+          <option value="MAT">MAT</option>
+          <option value="MFG">MFG</option>
+          <option value="PMG">PMG</option>
+          <option value="SIT">SIT</option>
+          <option value="SYS">SYS</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        Is Missing Parts
+      </div>
+    </div>
+    <div class="row">
+      <div class="col input-group input-group-sm">
+        <select class="custom-select" formControlName="isMissingParts">
+          <option value=0></option>
+          <option value=1>Yes</option>
+          <option value=-1>No</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        Ready To Implement
+      </div>
+    </div>
+    <div class="row">
+      <div class="col input-group input-group-sm">
+        <select class="custom-select" formControlName="isReady">
+          <option value=0></option>
+          <option value=1>Yes</option>
+          <option value=-1>No</option>
+        </select>
+      </div>
+    </div>
+    <div class="row h4 text-primary">
+      Action Search Parameters:
+    </div>
+    <div class="row">
+      <div class="col">
+        Action Owner
+      </div>
+    </div>
+    <div class="row">
+      <div class="col input-group input-group-sm">
+        <select class="custom-select" formControlName="actionOwner">
+          <option value=""></option>
+          <option *ngFor="let item of employees" value="{{ item.id }}">{{ item.firstName }} {{ item.lastName }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <!-- Action Status -->
+    <div class="row">
+      <div class="col">
+        Action Status
+      </div>
+    </div>
+    <div class="row">
+      <div class="col input-group input-group-sm">
+        <select class="custom-select" formControlName="actionStatus">
+          <option value='active'>Active</option>
+          <option value='draft'>Draft</option>
+          <option value='closed'>Closed</option>
+          <option value=''>All</option>
+        </select>
+      </div>
+    </div>
+    <!-- isMissingDueDate -->
+    <div class="row">
+      <div class="col">
+        Missing Due Date
+      </div>
+    </div>
+    <div class="row">
+      <div class="col input-group input-group-sm">
+        <select class="custom-select" formControlName="isMissingDueDate">
+          <option value=0></option>
+          <option value=1>Yes</option>
+          <option value=-1>No</option>
+        </select>
+      </div>
+    </div>
+    <!-- is action late -->
+    <div class="row">
+      <div class="col">
+        Is Action Late
+      </div>
+    </div>
+    <div class="row">
+      <div class="col input-group input-group-sm">
+        <select class="custom-select" formControlName="isActionLate">
+          <option value=0></option>
+          <option value=1>Yes</option>
+          <option value=-1>No</option>
+        </select>
+      </div>
+    </div>
+    <!-- Action Due Date More Than -->
+    <div class="row">
+      <div class="col">
+       Action Due Date More than
+      </div>
+    </div>
+    <div class="row">
+      <div class="col input-group input-group-sm">
+          <input type="number" class="form-control" formControlName="projectNo" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        Action Owner Department
+      </div>
+    </div>
+    <div class="row">
+      <div class="col input-group input-group-sm">
+        <select class="custom-select" formControlName="actionOwnerDept">
+          <option value=""></option>
+          <option value="CSS">CSS</option>
+          <option value="DDE">DDE</option>
+          <option value="ELEC">ELEC</option>
+          <option value="MAT">MAT</option>
+          <option value="MFG">MFG</option>
+          <option value="PMG">PMG</option>
+          <option value="SIT">SIT</option>
+          <option value="SYS">SYS</option>
+        </select>
+      </div>
+    </div>
+    <div class="row justify-content-end">
+      <div class="col-4 text-right">
+        <button type="button" class="btn btn-sm btn-outline-secondary w-100"
+          (click)="searchIssues()" *ngIf="!searchStatus">
+          <i class="fa fa-search"></i> Search
+        </button>
+      </div>
+      <div class="col-4 text-right">
+        <button type="button" class="btn btn-sm btn-outline-danger w-100" (click)="clearFilter()"
+          *ngIf="!searchStatus">
+          <i class="fa fa-times-circle"></i> Clear
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

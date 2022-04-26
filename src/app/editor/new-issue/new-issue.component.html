@@ -1,0 +1,92 @@
+<div class="text-center mt-2">
+    <h3>New Issue</h3>
+</div>
+<div class="mx-2 mt-2" [formGroup]="newIssueForm">
+    <div class="input-group mb-2" *ngIf="user.id==='SU903'">
+        <div class="input-group" >
+          <div class="input-group" for="inputGroupSelect01">Originator</div>
+        </div>
+        <select class="custom-select" formControlName="originator">
+          <option value=""></option>
+          <option *ngFor="let item of employees" value="{{item.id}}">{{item.firstName}} {{item.lastName}}</option>
+        </select>
+      </div>
+  <div class="input-group mb-2">
+    <div class="input-group">
+      <span class="input-group">ADDL Project No</span>
+    </div>
+    <input type="text" class="form-control" formControlName="projectNo">
+  </div>
+  <div class="input-group mb-2">
+    <div class="input-group">
+      <span class="input-group">Project No(Active)</span>
+    </div>
+    <select class="custom-select" formControlName="project">
+      <option value=""></option>
+      <option *ngFor="let item of projects" value="{{item.id}}">{{item.id}} {{item.name}}</option>
+    </select>
+  </div>
+  <div class="input-group mb-2">
+    <div class="input-group">
+      <div class="input-group" for="inputGroupSelect01">Issue Owner</div>
+    </div>
+    <select class="custom-select" formControlName="owner">
+      <option value=""></option>
+      <option *ngFor="let item of employees" value="{{item.id}}">{{item.firstName}} {{item.lastName}}</option>
+    </select>
+  </div>
+
+  <div class="input-group mb-2">
+    <div class="input-group">
+      <label class="input-group">Issue Status</label>
+    </div>
+    <select class="custom-select" formControlName="issueStatus">
+      <option value="active">Active</option>
+      <option value="closed">Closed</option>
+      <option value="ec">EC</option>
+    </select>
+  </div>
+
+  <div class="input-group mb-2">
+    <div class="input-group">
+      <span class="input-group">Issue Description</span>
+    </div>
+    <textarea class="form-control" formControlName="issueDescription"></textarea>
+  </div>
+
+  <div class="input-group mb-2">
+    <div class="input-group">
+      <span class="input-group">Issue Found In Process</span>
+    </div>
+    <select class="custom-select" formControlName="foundInProcess">
+      <option *ngFor="let item of processes" value="{{item.id}}">{{item.name}}</option>
+    </select>
+  </div>
+  <div class="input-group mb-2">
+      <div class="input-group">
+        <span class="input-group">Missing Parts</span>
+      </div>
+      <select class="custom-select" formControlName="isMissingParts">
+        <option value=true>Yes</option>
+        <option value=false>No</option>
+      </select>
+    </div>
+   <div class="text-danger" *ngIf="!isValid()&&newIssueForm.dirty">
+     {{user.id==="SU903"? "Originator, ": ""}}Issue Owner, Issue Status, Issue Description and Found in Process must be filled. At least one of the project number needs to be filled.</div>
+   <div class="text-danger" *ngIf="!user.id">
+    Please Login for Adding Issues
+   </div>
+  <div class="row justify-content-end mt-5" *ngIf="user.id">
+    <button type="button" class="btn btn-outline-primary mr-5" (click)="addNewIssue()" [disabled]='!isValid()&&!isReadyToAdd'>Add New Issue</button>
+    <button type="button" class="btn btn-outline-danger" (click)="cancel()">Cancel</button>
+  </div>
+</div>
+<div class="mx-2 my-2 border border-primary" *ngIf="issueNoHistory.length !==0">
+  <div>
+    <h3>
+      Issue Added History
+    </h3>
+    <div *ngFor="let item of issueNoHistory">Issue Number:{{item.issueNo}} Description:{{item.issueDescription}} Created
+      On: {{item.createdOn|date: 'medium'}}</div>
+  </div>
+</div>

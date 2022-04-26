@@ -1,0 +1,72 @@
+<nav class="navbar  sticky-top navbar-expand-lg navbar-light bg-light py-0">
+  <div class="col">
+    <div class="row">
+      <a class="navbar-brand" href="#"><img src="{{baseUrl}}assets/logo.png" class="mr-2"
+          [ngStyle]="{'height': '50px'}">Issue
+        Log</a>
+        <button class="navbar-toggler" type="button" (click)="toggle()">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      <div class="collapse navbar-collapse" [ngClass]="{ show: showMenu }">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/home']">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="" (click)="loadNewIssueComp()">New Issue</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="" (click)="loadAdvanceSearch()">Advance Search</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['project-list']">Project List</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['project-matrix']">Project Matrix</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" target="_blank"
+              href="https://greenlightinnovation.sharepoint.com/sites/GI-PP/Shared%20Documents/Forms/AllItems.aspx?originalPath=aHR0cHM6Ly9ncmVlbmxpZ2h0aW5ub3ZhdGlvbi5zaGFyZXBvaW50LmNvbS86Zjovcy9HSS1QUC9FalIyZWxMRlV5aE1pMm9xTGQ5OVM3Z0Judlh6Qkp6SHQxNTFDMjNjdjVhRGh3P3J0aW1lPVNQeUd3RENEMTBn&viewid=fafeeb88%2Df206%2D4067%2D9f12%2D4ee3fd8d08f7&id=%2Fsites%2FGI%2DPP%2FShared%20Documents%2FENG%20%2D%20Engineering%2FENG%2D240%20Issue%20Log">Issue
+              Log Procedure</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" target="_blank"
+              href="https://greenlightinnovation.sharepoint.com/:w:/g/EelHb1MluzhHjZ_nl3sECckBIRGVoh1J0BSvroynNGkrfQ?e=5wgDzl&CID=59CEFD50-6D3D-4E6F-B8EC-4BE93C3132FF&wdLOR=c2E1B87B4-49CC-47CF-A1B1-BC05E0456ABC">Issue
+              Owner Guideline</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-auto my-auto align-self-end">
+    <form class="form-group form-inline my-auto" [formGroup]="loginForm" *ngIf="!loggedIn()"
+      (ngSubmit)="loginForm.valid && login()">
+      <input class="form-control" placeholder="Username" formControlName="username" [ngbTooltip]="usernameTip" />
+      <ng-template #usernameTip>Login username is initial plus your lastname. Full Name: John Doe; Login username: jdoe
+      </ng-template>
+      <input class="form-control" type="password" placeholder="Password" formControlName="password"
+        [ngbTooltip]="passwordTip" />
+      <ng-template #passwordTip>Default password is your login username in lowercase.
+      </ng-template>
+      <button type="submit" class="btn btn-dark" [disabled]="!loginForm.valid">Login</button>
+    </form>
+    <div *ngIf="loggedIn()">
+      <button class="btn btn-dark" mat-button [matMenuTriggerFor]="menu" *ngIf="loggedIn()">
+        {{ loggedIn() ? 'Welcome ' + user.username : 'Hello, Sign In' }}
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item [routerLink]="['/changepassword']" *ngIf="loggedIn()">
+          Change Password
+        </button>
+        <button mat-menu-item (click)="signOut()" *ngIf="loggedIn()">
+          <i class="fa fa-1x fa-sign-out-alt mr-2"></i>Logout
+        </button>
+      </mat-menu>
+
+    </div>
+
+  </div>
+
+</nav>

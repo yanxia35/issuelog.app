@@ -1,0 +1,36 @@
+<!-- <div class="col-6"> -->
+<div class="row">
+  <div class="container col-8">
+    <div id="filter">
+      <app-issue-filter></app-issue-filter>
+    </div>
+
+    <!-- <app-issue-list></app-issue-list> -->
+    <div id="main">
+      <div *ngIf="searchStatus" class="text-center">
+        <img id="cat" src="{{baseUrl}}assets/img/top.gif">
+
+      </div>
+      <div *ngIf="searchStatus" class="text-center">
+          <img id="merry" src="{{baseUrl}}assets/img/bottom.gif">
+      </div>
+      <app-issue-posts></app-issue-posts>
+    </div>
+  </div>
+  <div class="container col" id="side">
+    <div id="issueEditor">
+      <!-- <div id="issueEditor" class="col"> -->
+      <app-issue-editor id="issueEd" *ngIf="editor.issueEditor == 1"></app-issue-editor>
+      <app-action-editor *ngIf="editor.issueEditor == 2"></app-action-editor>
+      <app-new-issue *ngIf="editor.issueEditor == 0"> </app-new-issue>
+      <app-advance-issue-filter *ngIf="editor.issueEditor == 3"></app-advance-issue-filter>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- <app-issue-editor></app-issue-editor> -->
+<!-- <app-action-editor></!-->

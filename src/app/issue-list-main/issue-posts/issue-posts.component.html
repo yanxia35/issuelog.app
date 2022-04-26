@@ -1,0 +1,17 @@
+<!-- <div class="row ml-2">
+  <div class="col-2">Fitlers:</div>
+    <div class="col-2">
+      <div class="btn btn-link btn-sm" *ngIf="issues.length>0" (click)="filterMissingParts()">Missing Part</div>
+    </div>
+  </div> -->
+<div class="issueSummary" *ngIf="!searchStatus">
+  <p class="total">Total: {{issueSummary.total}}</p>
+  <p class="active">Active: {{issueSummary.active}}</p>
+  <p class="closed">Closed: {{issueSummary.closed}}</p>
+  <p class="ec">EC: {{issueSummary.ec}}</p>
+</div>
+<div *ngFor="let item of issues">
+  <app-post #issuepost [issue]="item" ></app-post>
+</div>
+
+

@@ -1,0 +1,26 @@
+.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.row {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.col,
+[class*="col-"] {
+  padding-right: 0;
+  padding-left: 0;
+}
+.my-drop-zone {
+  border: dotted 3px lightgray;
+  width: 100%;
+}
+.nv-file-over {
+  border: dotted 3px red;
+}
+/* Default class applied to drop zones on over */
+.another-file-over-class {
+  border: dotted 3px green;
+}

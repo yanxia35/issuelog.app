@@ -1,0 +1,111 @@
+<form [formGroup]="actionEditorForm" class="mx-2">
+  <div class="mt-2 row justify-content-end">
+    <div class="col-5">
+      <h3>Action Editor</h3>
+    </div>
+    <button type="button" class="btn btn-outline-primary mr-2 col-2" (click)="saveAction()" *ngIf="user.id">
+      <i class="far fa-save mr-2"></i>Save</button>
+    <button type="button" class="btn btn-outline-warning col-2 mr-2" *ngIf="user.id" (click)="cancelEdit()">
+      <i class="far fa-times-circle mr-2"></i>Reset</button>
+    <button type="button" class="btn btn-outline-danger col-2" *ngIf="user.id" (click)="deleteAction()">
+      <i class="far fa-trash-alt mr-2"></i>Delete</button>
+  </div>
+  <div class="text-danger" *ngIf="!user.id">
+    Please Login for Editting
+  </div>
+  <div class="input-group input-group-sm mt-2 ">
+    <div class="input-group-prepend col-3">
+      <span class="input-group-text w-100">Issue Number</span>
+    </div>
+    <input type="text" readonly class="form-control" formControlName="issueNo">
+  </div>
+
+  <div class="input-group input-group-sm mt-2 ">
+    <div class="input-group-prepend col-3">
+      <span class="input-group-text w-100">Issue Notes</span>
+    </div>
+    <textarea readonly class="form-control" formControlName="issueNotes" rows="4"></textarea>
+  </div>
+
+  <div class="input-group input-group-sm mt-2 ">
+    <div class="input-group-prepend col-3">
+      <span class="input-group-text w-100">Action Id</span>
+    </div>
+    <input type="text" readonly class="form-control" formControlName="id">
+  </div>
+
+  <div class="input-group input-group-sm mt-2 ">
+    <div class="input-group-prepend col-3">
+      <span class="input-group-text w-100">Created By</span>
+    </div>
+    <input type="text" readonly class="form-control" formControlName="createdById">
+  </div>
+
+  <div class="input-group input-group-sm mt-2 ">
+    <div class="input-group-prepend col-3">
+      <span class="input-group-text w-100">Created On</span>
+    </div>
+    <input type="text" readonly class="form-control" formControlName="createdOn">
+  </div>
+
+  <div class="input-group input-group-sm mt-2 ">
+    <div class="input-group-prepend col-3">
+      <span class="input-group-text w-100">Action Notes</span>
+    </div>
+    <textarea [readonly]="!enableEditNotes" class="form-control" formControlName="actionNotes" rows="8"
+      (dblclick)="toggleNotesEdit()"></textarea>
+  </div>
+
+  <div class="input-group input-group-sm mt-2">
+    <div class="input-group-prepend col-3">
+      <span class="input-group-text w-100">New Notes</span>
+    </div>
+    <textarea class="form-control" formControlName="newNotes" rows="4"></textarea>
+  </div>
+
+  <div class="input-group input-group-sm mt-2">
+    <div class="input-group-prepend col-3">
+      <label class="input-group-text w-100" for="inputGroupSelect01"><b>Action Status</b></label>
+    </div>
+    <select class="custom-select" formControlName="actionStatus">
+      <option value="draft">Draft</option>
+      <option value="active">Active</option>
+      <option value="closed">Closed</option>
+    </select>
+  </div>
+
+  <div class="input-group input-group-sm mt-2">
+    <div class="input-group-prepend col-3">
+      <label class="input-group-text w-100" for="inputGroupSelect01">Responsible</label>
+    </div>
+    <select class="custom-select" formControlName="responsibleId">
+      <option value=""></option>
+      <option *ngFor="let item of employees" value="{{item.id}}">{{item.firstName}} {{item.lastName}}</option>
+    </select>
+  </div>
+
+  <div class="input-group input-group-sm mt-2">
+    <div class="input-group-prepend col-3">
+      <span class="input-group-text w-100">Due Date</span>
+    </div>
+    <input type="text" class="form-control" formControlName="dueDate" ngbDatepicker #d="ngbDatepicker" />
+    <button class="btn btn-outline-primary btn-sm calendar" (click)="d.toggle()" type="button">
+      <i class="fa fa-calendar"></i>
+    </button>
+  </div>
+
+  <div class="input-group input-group-sm mt-2">
+    <div class="input-group-prepend col-3">
+      <span class="input-group-text w-100">Action Closed Date</span>
+    </div>
+    <input readonly type="text" class="form-control" formControlName="actionClosedDate" />
+  </div>
+</form>
+<div class="mt-2 mx-2">
+  <button type="button" class="btn btn-outline-primary mr-2 col-2" (click)="saveAction()" *ngIf="user.id">
+    <i class="far fa-save mr-2"></i>Save</button>
+  <button type="button" class="btn btn-outline-warning col-2 mr-2" *ngIf="user.id" (click)="cancelEdit()">
+    <i class="far fa-times-circle mr-2"></i>Reset</button>
+  <button type="button" class="btn btn-outline-danger col-2" *ngIf="user.id" (click)="deleteAction()">
+    <i class="far fa-trash-alt mr-2"></i>Delete</button>
+</div>

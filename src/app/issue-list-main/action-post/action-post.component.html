@@ -1,0 +1,31 @@
+<div id="actionNotes" class="col-12">
+  <div class="row" [ngClass]="{'actionActive': action.actionStatus === 'active',
+'actionClosed': action.actionStatus === 'closed',
+'draft': action.actionStatus === 'draft',
+'selected':action.id === edittingAction.id && currentEditor.issueEditor ===2}">
+    <div class="col-2">
+      Action Id: {{action.id}}
+    </div>
+    <div class="col-4">
+      Responsible: <b>{{action.responsible?.firstName}} {{action.responsible?.lastName}}</b>
+    </div>
+    <div class="col-2">
+      Status: <b>{{action.actionStatus |titlecase }}</b>
+      <span *ngIf="action.actionStatus ==='active'">
+        <button class="btn btn-sm btn-dark ml-2" (click)="saveAction()"><b>Close</b></button>
+      </span>
+    </div>
+    <div class="col-2">
+      Due Date:  <b>{{action.dueDate|date:'yyyy-MM-dd'}}</b>
+    </div>
+    <div class="col text-right">
+      <i class="mr-1" [ngClass]="{'fas fa-edit': user.id , 'far fa-eye': !user.id}" style="cursor:pointer"
+        (click)="actionEdit(action.id)">
+        {{user.id? "Edit" : "Show"}}
+        Action</i>
+    </div>
+
+  </div>
+  <div class="mx-2" id="actionDesc">{{action.actionNotes}}
+  </div>
+</div>

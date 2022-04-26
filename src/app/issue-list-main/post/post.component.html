@@ -1,0 +1,115 @@
+<div class="mx-2 mt-1 border border-dark bg-light text-dark">
+  <div class="row" [ngClass]="{
+      active: issue.issueStatus === 'active',
+      closed: issue.issueStatus === 'closed',
+      ec: issue.issueStatus === 'ec',
+      selected: issue.id === edittingIssue.id && currentEditor.issueEditor === 1
+    }">
+    <div class="col-1">
+      <i class="fas fa-star" *ngIf="
+          issue.isMissingParts ||
+          (issue.ecParts ? issue.ecParts.length > 0 : false)
+        "></i>
+      <span  mat-raised-button
+      matTooltip="{{getIssueTooltipInfo()}}"
+      matTooltipPosition="after"
+      matTooltipClass="tooltipA"><b>
+      {{ issue.issueNo }}
+    </b></span>
+    </div>
+    <div class="col-3">
+      <a href="http://projects.greenlightinnovation.com/Project?projectid={{
+          issue.project
+        }}" target="_blank">{{ issue.project }}</a>
+      {{ issue.projectNo && issue.project ? ", " : "" }}{{ issue.projectNo }}
+    </div>
+    <div class="col-3">
+      Owner: <b>{{ issue.issueOwner.firstName }}
+      {{ issue.issueOwner.lastName }}</b>
+    </div>
+    <div class="col-1">
+      <b>{{ issue.issueStatus | titlecase }}</b>
+    </div>
+    <div class="col text-right mr-1">
+      <i class="fas fa-bell mr-2" *ngIf="!isSubscriber() && user.id" style="cursor: pointer" (click)="addSubscriber()">
+        Subscribe</i>
+      <i class="fas fa-bell-slash mr-2" *ngIf="isSubscriber() && user.id" style="cursor: pointer"
+        (click)="deleteSubscriber()">
+        Unsubscribe</i>
+      <i class="fas fa-plus mr-2" style="cursor: pointer" (click)="addAction()" *ngIf="user.id">
+        Add Action</i>
+      <i [ngClass]="{ 'fas fa-edit': user.id, 'far fa-eye': !user.id }" style="cursor: pointer" (click)="editIssue()">
+        {{ user.id ? "Edit" : "Show" }}
+        Issue</i>
+    </div>
+  </div>
+  <div class="row border border" id="description">
+    <div class="col ml-1">{{ issue.issueDescription }}</div>
+  </div>
+  <div class="row text-left">
+    <div class="col-3 btn btn-link btn-sm text-left" (click)="toggleActionList()">
+      <div *ngIf="issue.issueActions.length !== 0">
+        <i class="fas fa-chevron-right" *ngIf="!displayAction"></i>
+        <i class="fas fa-chevron-down" *ngIf="displayAction"></i>
+        {{ !displayAction ? "Expand Actions" : "Collapse Actions" }}
+      </div>
+      <div class="text-danger" *ngIf="issue.issueActions.length === 0">
+        No Actions
+      </div>
+    </div>
+    <div class="col-3 btn btn-link btn-sm text-left" (click)="toggleFlagList()">
+      <div *ngIf="issue.partIssues.length !== 0">
+        <i class="fas fa-chevron-right" *ngIf="!displayFlag"></i>
+        <i class="fas fa-chevron-down" *ngIf="displayFlag"></i>
+        {{ !displayFlag ? "Expand Flag Parts" : "Collapse Flag Parts" }}
+      </div>
+      <div class="text-danger" *ngIf="issue.partIssues.length === 0">
+        No Flagged Parts
+      </div>
+    </div>
+    <div class="col-3 btn btn-link btn-sm text-left" (click)="toggleEcbomList()">
+      <div *ngIf="issue.ecParts ? issue.ecParts.length !== 0 : false">
+        <i class="fas fa-chevron-right" *ngIf="!displayEcBom"></i>
+        <i class="fas fa-chevron-down" *ngIf="displayEcBom"></i>
+        {{ !displayFlag ? "Expand EC BOM" : "Collapse EC BOM" }}
+      </div>
+      <div class="text-danger" *ngIf="issue.ecParts ? issue.ecParts.length === 0 : true">
+        No EC Parts
+      </div>
+    </div>
+    <div class="col-3 issue-matrix-action">
+      <button class="btn btn-sm btn-primary" *ngIf="!isLinkedToSubProjects() && hasDefaultSubProject()" (click)="linkSubProjects()">
+        Create STD Matrix
+      </button>
+
+      <button class="btn btn-sm btn-secondary" *ngIf="isLinkedToSubProjects()&&!displayProjectMatrix"  (click)="toggleProjectMatrix()">
+        <i class="fas fa-chevron-right mr-1" *ngIf="isLinkedToSubProjects()&&!displayProjectMatrix"></i> Expand Project Matrix
+      </button>
+      <button class="btn btn-sm btn-secondary" *ngIf="isLinkedToSubProjects()&& displayProjectMatrix"  (click)="toggleProjectMatrix()">
+        <i class="fas fa-chevron-down mr-1" *ngIf="isLinkedToSubProjects()&& displayProjectMatrix"></i> Collapse Project Matrix
+      </button>
+      <div class="custom-btn">
+        <button class="mr-2 btn btn-sm btn-info" mat-button [matMenuTriggerFor]="menu">Custom</button>
+      </div>
+      <mat-menu #menu="matMenu" class="px-2 text-center">
+        <input type="text" placeholder="Project Number" [(ngModel)]="customMatrix" class="form-control" (click)="$event.stopPropagation();"/>
+        <button class="ml-2 btn btn-sm btn-info mt-2" (click)="createCustomMatrix()">Add Custom Project to Matrix</button>
+      </mat-menu>
+
+      <!-- <button (click)="test()">test</button> -->
+    </div>
+  </div>
+
+  <div class="row w-100">
+    <app-action-posts class="mx-2 col" *ngIf="displayAction" [issueActions]="issue.issueActions"></app-action-posts>
+    <app-flag-part-posts class="mx-2 col" *ngIf="displayFlag" [flagPartList]="issue.partIssues"></app-flag-part-posts>
+    <app-ecbom-posts class="mx-2 col" *ngIf="displayEcBom" [ecParts]="issue.ecParts"></app-ecbom-posts>
+  </div>
+
+  <div class="row mx-1 my-1  border border-warning" *ngIf="displayProjectMatrix">
+    <app-issue-matrix class="mx-2 mt-1 col" [subProjectStatuses]="issue.subProjectStatuses" [issue]="issue"
+      [userId]="user.id"></app-issue-matrix>
+  </div>
+</div>
+<app-action-template #actionTemplate [issue] = "issue"></app-action-template>
+
